@@ -78,15 +78,19 @@
 	<div
 		class="flex justify-between w-full mt-2 bg border-red sm:items-start md:flex-row md:items-center"
 	>
-		<p class="flex items-center text-sm text-gray-700 dark:text-gray-300">swyx</p>
-		<p class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+		<span class="flex items-center text-sm text-gray-700 dark:text-gray-300 gap-2">
+			{#if json.authorAvatarUrl}
+				<img src={json.authorAvatarUrl} class="w-6 m-0" alt="Author avatar" />
+			{/if}
+			{json.author}</span>
+		<span class="flex items-center text-sm text-gray-600 dark:text-gray-400">
 			<a href={json.ghMetadata.issueUrl} rel="external noreferrer" class="no-underline" target="_blank">
 				<!-- <span class="mr-4 font-mono text-xs text-gray-700 text-opacity-70 dark:text-gray-300"
 					>{json.ghMetadata.reactions.total_count} reactions</span
 				> -->
 				{new Date(json.date).toISOString().slice(0, 10)}
 			</a>
-		</p>
+		</span>
 	</div>
 	<div
 		class="-mx-4 my-2 flex h-1 w-[100vw] bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 sm:mx-0 sm:w-full"

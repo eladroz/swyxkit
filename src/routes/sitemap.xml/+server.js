@@ -1,5 +1,6 @@
 import { SITE_URL } from '$lib/siteConfig';
 import { listContent } from '$lib/content';
+import { contentCacheHeaders } from "$lib/cacheHeaders";
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export async function GET({ fetch }) {
@@ -9,7 +10,7 @@ export async function GET({ fetch }) {
 
 	return new Response(body, {
 		headers: {
-      'Cache-Control': `public, max-age=${86400}`, // 24 hours
+      ...contentCacheHeaders('long'),
 			'Content-Type': 'application/xml'
 		}
 	});

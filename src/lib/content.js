@@ -285,6 +285,8 @@ function parseIssue(issue) {
         slug: slug.toString().toLowerCase(),
         date: new Date(data.date ?? issue.created_at),
         readingTime: readingTime(content),
+        author: issue.user.login,
+        authorAvatarUrl: issue.user.avatar_url,
         ghMetadata: {
             issueUrl: issue.html_url,
             commentsUrl: issue.comments_url,

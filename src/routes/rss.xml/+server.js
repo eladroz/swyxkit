@@ -3,6 +3,8 @@ import { SITE_TITLE, SITE_URL } from '$lib/siteConfig';
 import { remark } from 'remark';
 import remarkHTML from 'remark-html';
 import { listContent } from '$lib/content';
+import { contentCacheHeaders } from "$lib/cacheHeaders";
+
 
 // Reference: https://github.com/sveltejs/kit/blob/master/examples/hn.svelte.dev/src/routes/%5Blist%5D/rss.js
 /** @type {import('@sveltejs/kit').RequestHandler} */
@@ -33,7 +35,7 @@ export async function GET({ fetch }) {
 	// Suggestion (check for correctness before using):
 	return new Response(feed.xml({ indent: true }), {
 		headers: {
-			'Cache-Control': `public, max-age=${86400}`, // 24 hours
+			...contentCacheHeaders('long'),
 			'Content-Type': 'application/rss+xml'
 		}
 	});

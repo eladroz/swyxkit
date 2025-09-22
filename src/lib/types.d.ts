@@ -14,6 +14,8 @@ export type ContentItem = {
 	slug: string;
 	date: Date;
 	readingTime: string;
+	author: string;
+	authorAvatarUrl?: string;
 	ghMetadata: GHMetadata;
 };
 
