@@ -27,8 +27,16 @@ export default async (request) => {
 	}
 
 	const eventType = request.headers.get('x-github-event');
-	if (eventType !== 'issues')
+	if (eventType === 'ping') {
+		// GitHub sends this event type when you save a new webhook
+		console.log(`Got ping event from GitHub, all good! zen: ${payload.zen}`)
+		return Response.json({ success: true });
+	} else if (eventType !== 'issues') {
+		// Webhook might have irrelevant event types configured (e.g. 'push', which is on by default)
+		console.warn(`Got unsupported event from GitHub: ${eventType}, check your webhook settings`)
 		return Response.json({ error: `Unexpected event type: ${eventType}` }, { status: 500 });
+	}
+
 	console.log(`Got action: ${payload.action}, issue URL: ${payload.issue?.html_url}`);
 
 	console.log(`Purging cache tag: ${ISSUES_CACHE_TAG} on Netlify`);
